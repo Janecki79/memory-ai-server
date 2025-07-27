@@ -17,7 +17,6 @@ async function ensureDirExists(dir) {
 
 // Odczyt pliku z folderu
 router.get("/pobierz", async (req, res) => {
-  console.log("REQ.BODY = ", req.body);
 
   const { plik } = req.query;
   if (!plik) return res.status(400).send("Brak parametru `plik`");
@@ -33,6 +32,7 @@ router.get("/pobierz", async (req, res) => {
 
 // Zapis/utworzenie pliku
 router.post("/zapisz", async (req, res) => {
+ console.log("REQ.BODY = ", req.body);
   const { plik, tresc } = req.body;
   if (!plik || !tresc) return res.status(400).send("Brak `plik` lub `tresc`");
 
