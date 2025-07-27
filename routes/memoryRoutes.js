@@ -17,6 +17,8 @@ async function ensureDirExists(dir) {
 
 // Odczyt pliku z folderu
 router.get("/pobierz", async (req, res) => {
+  console.log("REQ.BODY = ", req.body);
+
   const { plik } = req.query;
   if (!plik) return res.status(400).send("Brak parametru `plik`");
 
