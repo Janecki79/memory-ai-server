@@ -1,18 +1,11 @@
-const express = require("express");
-const cors = require("cors");
-const memoryRoutes = require("./routes/memoryRoutes");
-
+const express = require('express');
 const app = express();
-app.use(cors());
+const memoryRoutes = require('./memoryRoutes');
+
 app.use(express.json());
-
-app.get("/status", (req, res) => {
-  res.json({ status: "ok" });
-});
-
-app.use("/", memoryRoutes);
+app.use('/', memoryRoutes); // <-- tu podpinamy router
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Memory AI server is running on port ${PORT}`);
+  console.log(`Serwer działa na porcie ${PORT}`);
 });
