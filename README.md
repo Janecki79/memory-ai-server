@@ -18,7 +18,7 @@ Ten projekt to prosty serwer Node.js, który pełni funkcję pamięci długoterm
 
 
 
-\## 🚀 Jak uruchomić lokalnie
+\## 🚀 Jak uruchomić lokalnie.
 
 
 
