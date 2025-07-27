@@ -1,5 +1,8 @@
 const express = require("express");
 const app = express();
+const path = require("path");
+app.use(express.static(path.join(__dirname)));
+
 const memoryRoutes = require('./routes/memoryRoutes');
 
 app.use(express.json());
