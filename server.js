@@ -1,11 +1,12 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const memoryRoutes = require('./memoryRoutes');
+const memoryRoutes = require("./memoryRoutes");
 
 app.use(express.json());
-app.use('/', memoryRoutes); // <-- tu podpinamy router
+app.use("/", memoryRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Serwer działa na porcie ${PORT}`);
+app.get("/status", (req, res) => {
+  res.json({ status: "Działa!" });
 });
+
+module.exports = app;
