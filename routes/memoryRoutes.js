@@ -1,24 +1,27 @@
 const express = require("express");
-const router = express.Router(); // ⬅ TO JEST KLUCZOWE
+const router = express.Router();
+const fs = require("fs");
+const path = require("path");
 
 router.get("/pobierz", (req, res) => {
-  const plik = req.query.plik;
-  if (!plik) {
-    return res.status(400).json({ error: "Brak parametru 'plik'." });
+  const filePath = path.join(__dirname, "..", "data", "zdrowie.txt");
+  try {
+    const data = fs.readFileSync(filePath, "utf8");
+    res.send(data);
+  } catch (error) {
+    res.status(500).send("Błąd podczas odczytu pliku");
   }
-
-  const folderPath = path.join(__dirname, "pamiec");
-  const filePath = path.join(folderPath, plik);
-
-  if (!fs.existsSync(filePath)) {
-    return res.status(404).json({ error: "Plik nie istnieje." });
-  }
-
-  fs.readFile(filePath, "utf-8", (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: "Błąd odczytu pliku." });
-    }
-    res.json({ status: "OK", plik, tresc: data });
-  });
 });
 
+router.post("/zapisz", (req, res) => {
+  const { tresc } = req.body;
+  const filePath = path.join(__dirname, "..", "data", "zdrowie.txt");
+  try {
+    fs.writeFileSync(filePath, tresc, "utf8");
+    res.send("Zapisano pomyślnie");
+  } catch (error) {
+    res.status(500).send("Błąd podczas zapisu pliku");
+  }
+});
+
+module.exports = router;
