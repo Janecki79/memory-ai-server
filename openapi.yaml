@@ -16,7 +16,7 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: Treść pliku
           content:
             text/plain:
@@ -37,7 +37,7 @@ paths:
                 tresc:
                   type: string
       responses:
-        "200":
+        '200':
           description: Potwierdzenie zapisu
           content:
             application/json:
