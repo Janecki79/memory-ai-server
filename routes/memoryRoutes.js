@@ -3,8 +3,11 @@ const router = express.Router();
 const fs = require("fs").promises;
 const path = require("path");
 
+router.use(express.json()); // ← TO DODAJ
+
 // Główna ścieżka do danych
 const dataDir = path.join(process.cwd(), "data");
+
 
 // Upewniamy się, że folder istnieje
 async function ensureDirExists(dir) {
