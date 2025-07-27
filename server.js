@@ -6,6 +6,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/status", (req, res) => {
+  res.json({ status: "ok" });
+});
+
 app.use("/", memoryRoutes);
 
 const PORT = process.env.PORT || 3000;
