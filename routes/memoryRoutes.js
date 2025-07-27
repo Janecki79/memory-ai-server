@@ -34,19 +34,24 @@ router.get("/pobierz", async (req, res) => {
 });
 
 // Zapis/utworzenie pliku
-router.post("/zapisz", async (req, res) => {
- console.log("REQ.BODY = ", req.body);
-  const { plik, tresc } = req.body;
-  if (!plik || !tresc) return res.status(400).send("Brak `plik` lub `tresc`");
+router.post("/zapisz", express.json(), async (req, res) => {
+  console.log("REQ.BODY =", req.body);
 
-  const filePath = path.join(dataDir, plik);
+  const { plik, tresc } = req.body;
+
+  if (!plik || !tresc) {
+    return res.status(400).send("Brak wymaganych danych (plik lub tresc)");
+  }
+
+  const folderPath = path.join(__dirname, "pamiec");
+  const filePath = path.join(folderPath, plik);
+
   try {
-    await ensureDirExists(dataDir);
-    await fs.appendFile(filePath, `${tresc}\n`, "utf-8");
+    await fs.promises.mkdir(folderPath, { recursive: true });
+    await fs.promises.writeFile(filePath, tresc, "utf-8");
     res.send("Zapisano dane");
-  } catch (err) {
+  } catch (error) {
+    console.error("Błąd zapisu:", error);
     res.status(500).send("Błąd zapisu");
   }
 });
-
-module.exports = router;
