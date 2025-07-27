@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const memoryRoutes = require('./routes/memoryRoutes');
+const memoryRoutes = require('./routes/memoryRoutes.js');
 
 app.use(express.json());
 app.use("/", memoryRoutes);
