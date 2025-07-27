@@ -1,27 +1,20 @@
-const express = require("express");
-const router = express.Router();
-const fs = require("fs");
-const path = require("path");
-
-router.post("/zapisz", (req, res) => {
-  const { plik, tresc } = req.body;
-  if (!plik || !tresc) {
-    return res.status(400).json({ error: "Brak pliku lub treści." });
+router.get("/pobierz", (req, res) => {
+  const plik = req.query.plik;
+  if (!plik) {
+    return res.status(400).json({ error: "Brak parametru 'plik'." });
   }
 
   const folderPath = path.join(__dirname, "pamiec");
   const filePath = path.join(folderPath, plik);
 
-  // Upewnij się, że folder istnieje
-  fs.mkdirSync(folderPath, { recursive: true });
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).json({ error: "Plik nie istnieje." });
+  }
 
-  fs.writeFile(filePath, tresc, (err) => {
+  fs.readFile(filePath, "utf-8", (err, data) => {
     if (err) {
-      console.error("Błąd zapisu:", err);
-      return res.status(500).json({ error: "Błąd zapisu." });
+      return res.status(500).json({ error: "Błąd odczytu pliku." });
     }
-    res.json({ status: "OK", plik, tresc });
+    res.json({ status: "OK", plik, tresc: data });
   });
 });
-
-module.exports = router;
