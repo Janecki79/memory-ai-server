@@ -1,36 +1,30 @@
 openapi: 3.0.1
 info:
   title: Memory AI
-  description: API do zarządzania pamięcią użytkownika
+  description: API do zarządzania pamięcią użytkownika – zapis i odczyt z plików.
   version: "1.0.0"
+servers:
+  - url: https://memory-ai-server.onrender.com
 paths:
-  /memory/{topic}:
+  /pobierz:
     get:
-      summary: Pobierz pamięć
+      summary: Pobierz zawartość pliku pamięci
       parameters:
-        - in: path
-          name: topic
+        - in: query
+          name: plik
           required: true
           schema:
             type: string
       responses:
         "200":
-          description: OK
+          description: Treść pliku
           content:
-            application/json:
+            text/plain:
               schema:
-                type: object
-                properties:
-                  content:
-                    type: string
+                type: string
+  /zapisz:
     post:
-      summary: Zaktualizuj pamięć
-      parameters:
-        - in: path
-          name: topic
-          required: true
-          schema:
-            type: string
+      summary: Zapisz dane do pliku pamięci
       requestBody:
         required: true
         content:
@@ -38,8 +32,17 @@ paths:
             schema:
               type: object
               properties:
-                newText:
+                plik:
+                  type: string
+                tresc:
                   type: string
       responses:
         "200":
-          description: Pamięć zaktualizowana
+          description: Potwierdzenie zapisu
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
