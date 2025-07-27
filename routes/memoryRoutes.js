@@ -43,7 +43,7 @@ router.post("/zapisz", express.json(), async (req, res) => {
     return res.status(400).send("Brak wymaganych danych (plik lub tresc)");
   }
 
-  const folderPath = path.join(__dirname, "pamiec");
+const folderPath = dataDir;
   const filePath = path.join(folderPath, plik);
 
   try {
