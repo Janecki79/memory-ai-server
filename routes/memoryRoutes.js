@@ -1,28 +1,26 @@
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-
+const express = require("express");
 const router = express.Router();
+const fs = require("fs");
+const path = require("path");
 
-// ✅ Vercel pozwala pisać tylko do /tmp
-const dataDir = '/tmp';
-
-router.post('/zapisz', (req, res) => {
+router.post("/zapisz", (req, res) => {
   const { plik, tresc } = req.body;
-
   if (!plik || !tresc) {
-    return res.status(400).json({ error: 'Brakuje pola "plik" lub "tresc"' });
+    return res.status(400).json({ error: "Brak pliku lub treści." });
   }
 
-  const filePath = path.join(dataDir, plik);
+  const folderPath = path.join(__dirname, "pamiec");
+  const filePath = path.join(folderPath, plik);
 
-  fs.writeFile(filePath, tresc, 'utf8', (err) => {
+  // Upewnij się, że folder istnieje
+  fs.mkdirSync(folderPath, { recursive: true });
+
+  fs.writeFile(filePath, tresc, (err) => {
     if (err) {
-      console.error('Błąd zapisu:', err);
-      return res.status(500).json({ error: 'Błąd zapisu pliku' });
+      console.error("Błąd zapisu:", err);
+      return res.status(500).json({ error: "Błąd zapisu." });
     }
-
-    res.json({ status: 'OK', file: filePath });
+    res.json({ status: "OK", plik, tresc });
   });
 });
 
