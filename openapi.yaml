@@ -3,7 +3,6 @@ info:
   title: Memory AI
   description: API do zarządzania pamięcią użytkownika – zapis i odczyt z plików.
   version: "1.0.0"
-  https://memory-ai-server.onrender.com/openapi.yaml
 servers:
   - url: https://memory-ai-server.onrender.com
 paths:
