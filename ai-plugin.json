@@ -14,6 +14,10 @@
   "logo_url": "https://memory-ai-server.onrender.com/logo.png",
   "contact_email": "support@example.com",
   "legal_info_url": "https://example.com/legal",
+  "info": {
+    "title": "Memory AI Plugin",
+    "version": "1.0.0"
+  },
   "servers": [
     {
       "url": "https://memory-ai-server.onrender.com"
