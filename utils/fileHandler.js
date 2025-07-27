@@ -1,7 +1,8 @@
 const fs = require("fs").promises;
 const path = require("path");
 
-const dataDir = path.join(__dirname, "..", "data");
+const dataDir = path.join(process.cwd(), "data");
+
 
 async function readMemory(topic) {
   const filePath = path.join(dataDir, `${topic}.txt`);
