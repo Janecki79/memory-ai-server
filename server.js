@@ -1,5 +1,18 @@
 const express = require("express");
 const app = express();
+// Serwowanie plików statycznych do GPTs
+app.get('/openapi.yaml', (req, res) => {
+  res.sendFile(path.join(__dirname, 'openapi.yaml'));
+});
+
+app.get('/.well-known/ai-plugin.json', (req, res) => {
+  res.sendFile(path.join(__dirname, 'ai-plugin.json'));
+});
+
+app.get('/logo.png', (req, res) => {
+  res.sendFile(path.join(__dirname, 'logo.png'));
+});
+
 const path = require("path");
 app.use(express.static(path.join(__dirname)));
 
