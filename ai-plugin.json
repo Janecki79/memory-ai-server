@@ -1,26 +1,85 @@
 {
-  "schema_version": "v1",
-  "name_for_human": "Memory AI",
-  "name_for_model": "memory_ai",
-  "description_for_human": "Zarządzaj pamięcią AI według tematów.",
-  "description_for_model": "Umożliwia czytanie i aktualizację pamięci tematycznej użytkownika.",
-  "auth": {
-    "type": "none"
-  },
-  "api": {
-    "type": "openapi",
-    "url": "https://memory-ai-server.onrender.com/openapi.yaml"
-  },
-  "logo_url": "https://memory-ai-server.onrender.com/logo.png",
-  "contact_email": "support@example.com",
-  "legal_info_url": "https://example.com/legal",
+  "openapi": "3.1.0",
   "info": {
-    "title": "Memory AI Plugin",
+    "title": "Memory AI",
+    "description": "API do zarządzania pamięcią użytkownika - zapis i odczyt z plików.",
     "version": "1.0.0"
   },
   "servers": [
     {
       "url": "https://memory-ai-server.onrender.com"
     }
-  ]
+  ],
+  "paths": {
+    "/pobierz": {
+      "get": {
+        "summary": "Pobierz zawartość pliku pamięci",
+        "operationId": "pobierzPlik",
+        "parameters": [
+          {
+            "name": "plik",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Treść pliku",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/zapisz": {
+      "post": {
+        "summary": "Zapisz dane do pliku pamięci",
+        "operationId": "zapiszPlik",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "plik": {
+                    "type": "string"
+                  },
+                  "tresc": {
+                    "type": "string"
+                  }
+                },
+                "required": ["plik", "tresc"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Potwierdzenie zapisu",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
