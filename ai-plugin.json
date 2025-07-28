@@ -5,6 +5,10 @@
     "description": "API do zarządzania pamięcią użytkownika - zapis i odczyt z plików.",
     "version": "1.0.0"
   },
+  "api": {
+  "type": "openapi",
+  "url": "https://memory-ai-server.onrender.com/openapi.yaml"
+},
   "servers": [
     {
       "url": "https://memory-ai-server.onrender.com"
