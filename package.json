@@ -1,13 +1,16 @@
 {
-  "name": "memory-ai",
+  "name": "memory-ai-server",
   "version": "1.0.0",
-  "description": "AI Memory backend for GPTs integration",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "express": "^4.18.2"
+    "bcrypt": "^5.1.0",
+    "nodemailer": "^6.9.8"
   }
 }
